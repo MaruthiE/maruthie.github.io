@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Inter font (close alternative to Lab Grotesque) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maruthi Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Floating Header -->
+  <div class="floating-header">
+    <div class="name-year">
+      <h1>Maruthi Eranki</h1>
+      <h2 id="section-label">Experience</h2>
+    </div>
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="timeline">
+    <!-- Experience -->
+    <div class="entry" id="experience" data-section="experience">
+      <img src="images/sasa.png" alt="Superalign Dashboard" class="entry-img">
+    </div>
+    <div class="entry" id="bud" data-section="experience">
+      <img src="images/bud.png" alt="Bud Dashboard" class="entry-img">
+    </div>
+    <div class="entry" id="utd" data-section="experience">
+      <img src="images/utdutd.png" alt="utd park" class="entry-img">
+    </div>
+
+    <!-- Projects -->
+    <div class="entry" id="sage" data-section="projects">
+      <img src="images/sage.png" alt="sage" class="entry-img">
+    </div>
+    <div class="entry" id="discord" data-section="projects">
+      <img src="images/discord1.png" alt="discord clip" class="entry-img">
+    </div>
+    <div class="entry" id="boardgame" data-section="projects">
+      <img src="images/boardgame.png" alt="boardgame app" class="entry-img">
+    </div>
+    <div class="entry" id="prosthetic" data-section="projects">
+      <img src="images/prostheticarm.png" alt="prosthetic arm" class="entry-img">
+    </div>
+
+    <!-- About -->
+    <div class="entry" id="about-me" data-section="about">
+      <img src="images/IMG_6331.png" alt="About Me" class="entry-img">
+    </div>
+    <div class="entry" id="about-hobbies" data-section="about">
+      <img src="images/pexels-irenelasus-90454.png" alt="Hobbies" class="entry-img">
+    </div>
+
+    <!-- Music -->
+    <div class="entry" id="music" data-section="about">
+      <img src="images/yxp24lpnzks21.png" alt="Music" class="entry-img">
+    </div>
+
+    <!-- Contact -->
+    <div class="entry" id="contact-box" data-section="contact">
+      <img src="images/contact.png" alt="Contact" class="entry-img">
+    </div>
+  </div>
+
+  <!-- Project Detail Overlay -->
+  <div id="project-overlay" class="overlay">
+    <div class="overlay-content">
+      <div class="overlay-text">
+        <h2 id="overlay-company">Company Name</h2>
+        <h3 id="overlay-role">Role</h3>
+        <p id="overlay-period">Year / Duration</p>
+        <p id="overlay-desc">Description goes here.</p>
+        <p id="overlay-tech-wrapper">
+            <strong>Tech Stack:</strong> <span id="overlay-tech"></span>
+        </p>
+
+      </div>
+      <div class="overlay-image">
+        <img id="overlay-img" src="" alt="Project Image">
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor"></div>
+
+  <!-- Script -->
+  <script>
+  const cursor = document.querySelector(".custom-cursor");
+
+  // === Cursor follow ===
+  document.addEventListener("mousemove", (e) => {
+    cursor.style.top = `${e.clientY}px`;
+    cursor.style.left = `${e.clientX}px`;
+  });
+
+  // Hide cursor when leaving window
+  document.addEventListener("mouseleave", () => {
+    cursor.style.opacity = "0";
+  });
+  document.addEventListener("mouseenter", () => {
+    cursor.style.opacity = "1";
+  });
+
+  // Shrink cursor only on header links
+  const hoverTargets = document.querySelectorAll(".links a");
+  hoverTargets.forEach(el => {
+    el.addEventListener("mouseenter", () => cursor.classList.add("active"));
+    el.addEventListener("mouseleave", () => cursor.classList.remove("active"));
+  });
+
+  // === Overlay setup ===
+  const overlay = document.getElementById("project-overlay");
+  const overlayCompany = document.getElementById("overlay-company");
+  const overlayRole = document.getElementById("overlay-role");
+  const overlayPeriod = document.getElementById("overlay-period");
+  const overlayDesc = document.getElementById("overlay-desc");
+  const overlayTech = document.getElementById("overlay-tech");
+  const overlayImg = document.getElementById("overlay-img");
+
+  // Project data
+  const projectData = {
+    experience: {
+      company: "SuperAlign",
+      role: "Software Engineer Intern",
+      period: "Summer 2025",
+      description: [
+        "Helped companies stay safe by creating a tool that automatically tracked and reported security risks.",
+        "Built features that made searching large amounts of client data much faster and more accurate.",
+        "Created a browser extension that flagged and blocked sensitive information before it was sent."
+      ],
+      tech: ["Python", "Go", "TypeScript", "SQL"],
+      img: "images/sasa.png"
+    },
+    bud: {
+      company: "Bud Ecosystem",
+      role: "Software Engineer Intern",
+      period: "Summer 2024",
+      description: [
+        "Worked on apps that helped companies keep track of their computer systems’ performance.",
+        "Added new website features that teams used to manage clusters of computers more easily."
+      ],
+      tech: ["Python", "FastAPI", "React", "Next.js", "AWS"],
+      img: "images/bud.png"
+    },
+    utd: {
+      company: "UT Dallas",
+      role: "Teaching Assistant",
+      period: "Spring 2025",
+      description: [
+        "Guided students through programming assignments and explained difficult coding concepts.",
+        "Held office hours, answered questions, and graded assignments for a class of 60+ students."
+      ],
+      tech: ["C++", "Unix/Linux"],
+      img: "images/utdutd.png"
+    },
+    sage: {
+      company: "SAGE",
+      role: "Co-founder",
+      period: "Spring 2024",
+      description:
+        "I was frustrated with how long it took to get a simple response from an advisor, so my team and I built Sage, an AI chatbot that gives students answers right away. It guides students not only through degree planning but also by offering career advice that helps them make smarter decisions. With its degree planner, students can easily map out schedules and feel more confident about their future.",
+
+      tech: ["React", "JavaScript", "Next.js", "AWS Textract", "S3", "DynamoDB"],
+      img: "images/sage.png"
+    },
+    discord: {
+      company: "Discord Clip Agent",
+      role: "Personal Project",
+      period: "2024",
+      description: [
+        "Built a tool that records and saves clips from Discord conversations.",
+        "Added AI that automatically transcribes audio and highlights the most important moments.",
+        "Designed a simple interface for browsing and replaying clips."
+      ],
+      tech: ["Go", "Python", "Flask", "MongoDB", "React", "Azure"],
+      img: "images/discord1.png"
+    },
+    boardgame: {
+      company: "Board Game Rental App",
+      role: "Team Lead",
+      period: "2024",
+      description: [
+        "Led a small team to build a website where people can rent board games online.",
+        "Set up the database to track games and availability.",
+        "Designed the website so users could browse and rent easily."
+      ],
+      tech: ["Angular", "Node.js", "JavaScript", "Firebase"],
+      img: "images/boardgame.png"
+    },
+    prosthetic: {
+      company: "Prosthetic Arm Project",
+      role: "Hardware + Software Engineer",
+      period: "2024",
+      description: [
+        "Designed and prototyped a robotic prosthetic arm.",
+        "Worked on sensors and control systems for movement.",
+        "Built software to process user input and translate into mechanical motion."
+      ],
+      tech: ["Arduino", "C++", "Python", "3D Printing"],
+      img: "images/prostheticarm.png"
+    },
+    "about-me": {
+      company: "About Me",
+      role: "Student & Developer",
+      description:
+        "Hey, I’m a junior at UT Dallas and I’m all about adventure and trying new things. I’ve spent time living in Australia and London, and those experiences made me love exploring new places even more. I play tennis, love board games, and right now I’m watching Naruto.",
+      img: "images/IMG_6331.png"
+    },
+    "about-hobbies": {
+      company: "Hobbies",
+      description: [
+        "Rock Climbing",
+        "Pickleball",
+        "Mountain Biking",
+        "Hiking"
+      ],
+      img: "images/pexels-irenelasus-90454.png"
+    },
+    music: {
+      company: "Music",
+      description: [
+        "I’ve been playing guitar for 5+ years.",
+        "I enjoy making playlists and discovering new genres.",
+        "Music helps me stay creative while coding."
+      ],
+      img: "images/yxp24lpnzks21.png"
+    },
+    "contact-box": {
+      company: "Let's Connect",
+      role: "",
+      period: "",
+      description: [
+        "Email: erankimaruthi04@example.com",
+        "LinkedIn: linkedin.com/in/maruthieranki",
+        "Discord: maruthi02007"
+      ],
+      img: "images/contact.png"
+    }
+  };
+
+  // === Open overlay when clicking an entry ===
+  // === Open overlay when clicking an entry ===
+document.querySelectorAll(".entry").forEach((entry, index, allEntries) => {
+  entry.addEventListener("click", () => {
+    const id = entry.id;
+
+    // 🚫 Skip the music entry so it does nothing
+    if (id === "music") return;
+
+    const data = projectData[id];
+    if (data) {
+  overlayCompany.textContent = data.company;
+  overlayRole.textContent = data.role;
+  overlayPeriod.textContent = data.period;
+
+  if (Array.isArray(data.description)) {
+    overlayDesc.innerHTML =
+      "<ul>" + data.description.map(d => `<li>${d}</li>`).join("") + "</ul>";
+  } else {
+    overlayDesc.textContent = data.description;
+  }
+
+  // ✅ Safe tech stack rendering
+  // ✅ Show/hide Tech Stack row
+if (data.tech && data.tech.length > 0) {
+  overlayTech.textContent = data.tech.join(", ");
+  document.getElementById("overlay-tech-wrapper").style.display = "block";
+} else {
+  document.getElementById("overlay-tech-wrapper").style.display = "none";
+}
+overlayImg.src = data.img;
+}
+
+
+    // Hide header
+    document.querySelector(".floating-header").classList.add("hidden");
+
+    // Animate other boxes
+    allEntries.forEach((e, i) => {
+      if (e !== entry) {
+        if (i < index) e.classList.add("slide-left");
+        else e.classList.add("slide-right");
+      } else {
+        e.style.opacity = "0"; // fade out clicked box
+      }
+    });
+
+    // Show overlay smoothly
+    overlay.style.display = "flex";
+    requestAnimationFrame(() => {
+      overlay.classList.add("show");
+    });
+  });
+});
+
+
+  // === Close overlay ===
+  overlay.addEventListener("click", () => {
+    overlay.style.display = "none";
+    overlay.classList.remove("show");
+
+    // Restore header + boxes
+    document.querySelector(".floating-header").classList.remove("hidden");
+    document.querySelectorAll(".entry").forEach(e => {
+      e.classList.remove("slide-left", "slide-right");
+      e.style.opacity = "1";
+    });
+  });
+
+  // === Section scroll + header update ===
+  const sectionLabel = document.getElementById("section-label");
+  const timeline = document.querySelector(".timeline");
+
+  const sectionEntries = {
+    experience: document.getElementById("experience"),
+    projects: document.getElementById("sage"),
+    about: document.getElementById("about-me"),
+    contact: document.getElementById("contact-box")
+  };
+
+  const sectionNames = {
+    experience: "Experience",
+    projects: "Projects",
+    about: "About",
+    contact: "Contact"
+  };
+
+  timeline.addEventListener("scroll", () => {
+    const triggerPoint = window.innerWidth * 0.33;
+    let currentSection = "experience";
+
+    if (sectionEntries.contact && sectionEntries.contact.getBoundingClientRect().left <= triggerPoint) {
+      currentSection = "contact";
+    } else if (sectionEntries.about && sectionEntries.about.getBoundingClientRect().left <= triggerPoint) {
+      currentSection = "about";
+    } else if (sectionEntries.projects && sectionEntries.projects.getBoundingClientRect().left <= triggerPoint) {
+      currentSection = "projects";
+    } else {
+      currentSection = "experience";
+    }
+
+    sectionLabel.textContent = sectionNames[currentSection];
+  });
+
+  // === Smooth autoscroll for nav links ===
+  document.querySelectorAll(".links a").forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      const targetId = link.getAttribute("href").replace("#", "");
+      const targetEntry = sectionEntries[targetId];
+      if (targetEntry) {
+        const entryRect = targetEntry.getBoundingClientRect();
+        const timelineRect = timeline.getBoundingClientRect();
+        const currentScroll = timeline.scrollLeft;
+
+        const targetScroll = currentScroll + (entryRect.left - timelineRect.left) - (window.innerWidth * 0.33);
+
+        timeline.scrollTo({
+          left: targetScroll,
+          behavior: "smooth"
+        });
+      }
+    });
+  });
+  </script>
+</body>
+</html>

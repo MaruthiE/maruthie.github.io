@@ -1,0 +1,309 @@
+/* ========== GLOBAL ========== */
+:root {
+  --side-offset: 25%;
+  --bg-main: #000000;
+  --bg-alt: #161618;
+  --bg-box: #212124;
+  --text-primary: #ffffff;
+  --text-secondary: #818181;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: "Lab Grotesque", -apple-system, BlinkMacSystemFont, 
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, 
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ========== HEADER ========== */
+.floating-header {
+  position: fixed;
+  top: 10%;
+  left: var(--side-offset);
+  width: calc(100% - 2 * var(--side-offset));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+}
+
+.name-year h1 {
+  margin: 0;
+  font-size: 1.6rem;   /* 👈 slightly larger */
+  font-weight: 350;    /* 👈 light */
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.name-year h2 {
+  margin: 0.3rem 0 0 0;
+  font-size: 1.2rem;   /* 👈 smaller than h1 */
+  font-weight: 350;    /* 👈 same light weight */
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+
+
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+}
+.links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+.links a:hover {
+  color: var(--text-primary);
+}
+
+/* ========== TIMELINE ========== */
+.timeline {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding-top: 32vh;
+  padding-bottom: 10vh;
+  scrollbar-width: none;
+}
+
+.timeline::-webkit-scrollbar {
+  display: none;
+}
+
+.timeline::before {
+  content: "";
+  flex: 0 0 calc(var(--side-offset) - 1.5rem);
+}
+.timeline::after {
+  content: "";
+  flex: 0 0 calc(var(--side-offset) - 1.5rem);
+}
+
+/* ========== BOXES ========== */
+.entry {
+  position: relative;
+  flex: 0 0 auto;        /* 👈 box width = image width */
+  margin: auto 1.5rem;     /* 👈 spacing between images */
+  border-radius: 0;      /* 👈 optional, remove rounding */
+  overflow: visible;     /* 👈 let image flow naturally */
+  box-shadow: none;      /* 👈 no forced shadows */
+  transition: transform 0.3s ease;
+}
+.entry:hover {
+  transform: scale(1.05);
+}
+
+
+/* Image fills box */
+.entry-img {
+  height: auto;
+  max-height: 55vh;   /* 👈 adjust this to control vertical height */
+  width: auto;
+  display: block;
+  border-radius: 12px;  /* 👈 curved edges */
+}
+
+
+
+/* Overlay text on boxes */
+.entry h2 {
+  white-space: nowrap;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  color: var(--text-primary);
+  z-index: 2;
+}
+
+/* ========== CUSTOM CURSOR ========== */
+body {
+  cursor: none;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  background: rgba(90, 90, 90, 0.7);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.2s ease, opacity 0.3s ease;
+  z-index: 9999;
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.custom-cursor.active {
+  transform: translate(-50%, -50%) scale(0.5);
+}
+
+a, button {
+  cursor: none;
+}
+
+/* ========== OVERLAY VIEW ========== */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.overlay-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 90%;
+  max-height: 80%;
+  position: relative;
+}
+
+/* Overlay text layout */
+/* Overlay text layout */
+.overlay-text {
+  flex: 1;
+  color: var(--text-primary);
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem; /* consistent spacing between elements */
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.overlay.show .overlay-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.overlay-text h2 {
+  font-size: 1.6rem;
+  font-weight: 600; /* bold like Lobe */
+  margin: 0;
+  line-height: 1.3;
+}
+
+.overlay-text h3 {
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.overlay-text p {
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.overlay-text strong {
+  display: block;
+  margin-top: 1rem; /* space before tech stack */
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+/* Tech stack pills */
+#overlay-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+#overlay-tech span {
+  background: var(--bg-box);
+  color: var(--text-primary);
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+
+/* Overlay image */
+.overlay-image {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(0) scale(1);
+  transition: transform 0.6s ease;
+}
+
+.overlay-image img {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.overlay.show .overlay-image {
+  transform: translateX(40px) scale(1.05);
+}
+
+/* Hide header */
+.floating-header.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+/* Slide out animation for entries */
+.entry.slide-left {
+  transform: translateX(-120%) scale(0.9);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+.entry.slide-right {
+  transform: translateX(120%) scale(0.9);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.entry.hidden {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Overlay description list */
+#overlay-desc ul {
+  margin: 0.5rem 0;
+  padding-left: 1.2rem;
+}
+
+#overlay-desc li {
+  margin-bottom: 0.6rem;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
